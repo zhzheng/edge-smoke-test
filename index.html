@@ -59,26 +59,36 @@
 
     /* These are not valid credit card numbers!!!! */
     /* They pass the Luhn check but that's it.     */
-    var CCFillFormSimpsons = function () {
-      var form = document.forms['cc1'];
-      form['name'].value = 'Homer Simpson';
-      form['CCNo'].value = '4408-0412-3456-7893';
-      form['CCExpiresMonth'].value = '06';
-      form['CCExpiresYear'].value = '2013';
+    var FillFormGood = function () {
+      var form = document.forms['CreditCardAutoFill'];
+      form['CardHolderName'].value = 'Leonora V Pimentel';
+      form['AddressLine1'].value = '1299 Rebecca Street';
+      form['City'].value = 'Bensenville';
+      form['State'].value = 'Illinois';
+      form['PostalCode'].value = '60106';
+      form['Country'].value = 'United States';
+      form['CreditCardNumber'].value = '4485923556582939';
+      form['ExpiryDate'].value = '01/2024';
+      form['CVV'].value = '611';
+      form['email'].value = 'Dr.Pimentel@example.org';
+      form['phoneNumber'].value = '+1 (847) 748-0399';
+      form['organization'].value = 'Rebecca';
     }
-    var CCFillFormSuperman = function () {
-      var form = document.forms['cc1'];
-      form['name'].value = 'Superman';
-      form['CCNo'].value = '4000-4444-4444-4444';
-      form['CCExpiresMonth'].value = '01';
-      form['CCExpiresYear'].value = '2021';
-    }
-    var CCFillFormPresident = function () {
-      var form = document.forms['cc1'];
-      form['name'].value = 'Barack Obama';
-      form['CCNo'].value = '4417-1234-5678-9113';
-      form['CCExpiresMonth'].value = '12';
-      form['CCExpiresYear'].value = '2022';
+
+    var FillFormBad = function () {
+      var form = document.forms['CreditCardAutoFill'];
+      form['CardHolderName'].value = 'Barack Obama';
+      form['AddressLine1'].value = '1600 Pennsylvania Ave NW';
+      form['City'].value = 'Washington';
+      form['State'].value = 'Washington D.C.';
+      form['PostalCode'].value = '20500';
+      form['Country'].value = 'United States';
+      form['CreditCardNumber'].value = '4417-1234-5678-9113';
+      form['ExpiryDate'].value = '12/2022';
+      form['CVV'].value = '222';
+      form['email'].value = 'Dr.Roman@chaldea.org';
+      form['phoneNumber'].value = '+1 (843) 554-5795';
+      form['organization'].value = 'Chaldea';
     }
 
     var NPFillFormSimpsons = function () {
@@ -129,10 +139,63 @@
 </head>
 
 <body>
-  <em>Beware what you post, all the forms send data to https://example.com.</em>
-  <br><br>
-  This page: <a href="https://goo.gl/B6Xs1E">https://goo.gl/B6Xs1E</a>
+  <div id="creditCardAutofill">
+    <h3>Credit Card Autofill</h3>
+    <form id="CreditCardAutoFill" action="https://example.com/" method="post">
+      <div>
+        Credit card number: <input name="CreditCardNumber" id="creditCardNumber" placeholder="Card number" autofocus>
+      </div>
+      <div>
+        Card holder name: <input name="CardHolderName" placeholder="Name On Card" id="cardHolderName">
+      </div>
+      <div>
+        Expiry date: <input name="ExpiryDate" id="expiry_date" placeholder="Expiry date" />
+      </div>
+      <div>
+        CVV: <input name="CVV" id="cvv" placeholder="CVV">
+      </div>
+      <div>
+        Country: <input name="Country" id="country" placeholder="Country">
+      </div>
+      <div>
+        Address line 1: <input name="AddressLine1" id="addressLine1" placeholder="Address line 1">
+      </div>
+      <div>
+        Address line 2: <input name="AddressLine2" id="addressLine2" placeholder="Address line 2">
+      </div>
+      <div>
+        City: <input name="City" id="city" placeholder="City">
+      </div>
+      <div>
+        State: <input name="State" id="state" placeholder="State">
+      </div>
+      <div>
+        Zip code: <input name="PostalCode" id="postalCode" placeholder="Zip code">
+      </div>
+      <div>
+        Email: <input placeholder="Email" name="email">
+      </div>
+      <div>
+        Phone number: <input placeholder="Phone number" name="phoneNumber">
+      </div>
+      <div>
+        Organization: <input placeholder="Organization" name="organization">
+      </div>
+      <br>
+      <input type="reset" value="Reset" id="creditCardFormReset">
+      <input type="submit" value="Submit" id="creditCardFormSubmit">
+    </form>
 
+    <button type="button" onclick="FillFormGood()">Fill Form (Good Card)</button>
+    <br>
+    <button type="button" onclick="FillFormBad()">Fill Form (Bad Card)</button>
+    <br>
+
+    <div class="statement-0-2-15"><em>Beware what you post, all the forms send data to https://example.com.</em> <a
+        class="statementLegal-0-2-16" href="https://privacy.microsoft.com/en-us/privacystatement"
+        target="_blank">Microsoft Privacy Statement</a></div>
+  </div>
+  <hr>
   <h3>Profile Autofill</h3>
 
   <form name="addr1.1" id="form1" action="https://example.com/" method="post">
@@ -209,65 +272,7 @@
 
   </p>
   <hr>
-  <h3>Credit Card autofill</h3>
 
-  <form name="cc1.1" id="cc1" action="https://example.com/" method="post">
-    Name on card: <input autofocus="" type="text" name="name" id="credit_card_name"><br>
-    Credit card number: <input type="text" name="CCNo" id="credit_card_number"><br>
-    Expiry Date: <select name="CCExpiresMonth">
-      <option value="01">01</option>
-      <option value="02">02</option>
-      <option value="03">03</option>
-      <option value="04">04</option>
-      <option value="05">05</option>
-      <option value="06">06</option>
-      <option value="07">07</option>
-      <option value="08">08</option>
-      <option value="09">09</option>
-      <option value="10">10</option>
-      <option value="11">11</option>
-      <option value="12">12</option>
-    </select>
-    /
-    <select name="CCExpiresYear">
-      <option value="2019">2019</option>
-      <option value="2020">2020</option>
-      <option value="2021">2021</option>
-      <option value="2022">2022</option>
-      <option value="2023">2023</option>
-      <option value="2024">2024</option>
-      <option value="2025">2025</option>
-      <option value="2026">2026</option>
-      <option value="2027">2027</option>
-      <option value="2028">2028</option>
-      <option value="2029">2029</option>
-      <option value="2030">2030</option>
-      <option value="2031">2031</option>
-      <option value="2032">2032</option>
-      <option value="2033">2033</option>
-      <option value="2034">2034</option>
-      <option value="2035">2035</option>
-      <option value="2036">2036</option>
-      <option value="2037">2037</option>
-    </select>
-    <br>
-    CVC: <input name="cvc">
-    <br>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Submit" id="credit_card_submit">
-  </form>
-
-  <p>
-
-    <button type="button" onclick="CCFillFormSimpsons()">CC Fill Form (Simpsons)</button>
-    <br>
-    <button type="button" onclick="CCFillFormSuperman()">CC Fill Form (Superman)</button>
-    <br>
-    <button type="button" onclick="CCFillFormPresident()">CC Fill Form (President)</button>
-    <br>
-
-  </p>
-  <hr>
   <h3>Username/Password</h3>
 
   <form name="np" id="np1" action="https://example.com/" method="post">
