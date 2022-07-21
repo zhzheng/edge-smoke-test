@@ -144,6 +144,11 @@
       "United States": "12345"
     };
 
+    function ResetCreditCardAutofillZipPlaceHolder() {
+      var form = document.forms['CreditCardAutoFill'];
+      form['PostalCode'].placeholder = "Example: " + postcode['United States'];
+    }
+
     function UpdateZipPlaceHolder() {
       var select = $("#country_select").children('option:selected').val();
       if (postcode[select]) {
@@ -177,7 +182,8 @@
 <body>
   <div id="creditCardAutofill">
     <h3>Credit Card Autofill</h3>
-    <form id="CreditCardAutoFill" action="https://example.com/" method="post" enctype="multipart/form-data">
+    <form id="CreditCardAutoFill" action="https://example.com/" method="post" enctype="multipart/form-data"
+      onreset="ResetCreditCardAutofillZipPlaceHolder()">
       <div>
         Credit card number: <input name="CreditCardNumber" id="creditCardNumber" placeholder="Card number" autofocus>
       </div>
