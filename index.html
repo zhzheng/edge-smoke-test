@@ -128,6 +128,41 @@
     function ShowPhoneNumber() {
       document.getElementById('form_phone_container').style.display = 'block';
     }
+
+    const postcode = {
+      "Australia": "1234",
+      "Brazil": "22230-090",
+      "Canada": "A1B 2C3",
+      "China": "123456",
+      "France": "12345",
+      "Germany": "12345",
+      "India": "123456",
+      "Japan": "123-4567",
+      "Mexico": "12345",
+      "South Korea": "12345",
+      "United Kingdom": "LE1 5AF",
+      "United States": "12345"
+    };
+
+    function UpdateZipPlaceHolder() {
+      var select = $("#country_select").children('option:selected').val();
+      if (postcode[select]) {
+        ph = "Example: " + postcode[select];
+      } else {
+        ph = "Zip code";
+      }
+      $("#postalCode")[0].placeholder = ph;
+    }
+
+    $(document).ready(function () {
+      UpdateZipPlaceHolder();
+    });
+
+    $(document).ready(function () {
+      $("#country_select").change(function () {
+        UpdateZipPlaceHolder();
+      })
+    });
   </script>
   <style>
     .fork {
@@ -185,7 +220,7 @@
         State: <input name="State" id="state" placeholder="State">
       </div>
       <div>
-        Zip code: <input name="PostalCode" id="postalCode" placeholder="Zip code">
+        Zip code: <input name="PostalCode" id="postalCode" placeholder="Zip Code">
       </div>
       <div>
         Email: <input placeholder="Email" name="email">
