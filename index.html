@@ -1,8 +1,9 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.5">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Autofill Smoke Test</title>
 
   <link rel="shortcut icon" type="image/x-icon" href="/img/favicon.ico?">
@@ -141,7 +142,7 @@
 <body>
   <div id="creditCardAutofill">
     <h3>Credit Card Autofill</h3>
-    <form id="CreditCardAutoFill" action="https://example.com/" method="post">
+    <form id="CreditCardAutoFill" action="https://example.com/" method="post" enctype="multipart/form-data">
       <div>
         Credit card number: <input name="CreditCardNumber" id="creditCardNumber" placeholder="Card number" autofocus>
       </div>
@@ -212,11 +213,11 @@
   <hr>
   <h3>Profile Autofill</h3>
 
-  <form name="addr1.1" id="form1" action="https://example.com/" method="post">
+  <form name="addr1.1" id="form1" action="https://example.com/" method="post" enctype="multipart/form-data">
     Name: <input type="text" name="name" placeholder="Name"><br>
     Address: <input type="text" name="address" placeholder="Address"><br>
     City: <input type="text" name="city" placeholder="City"><br>
-    State: <select name="state">
+    State: <select name="state" aria-labelledby="state">
       <option value="CA">CA</option>
       <option value="MA">MA</option>
       <option value="NY">NY</option>
@@ -226,12 +227,12 @@
       <option value="IL">IL</option>
       <option value="DC">DC</option>
     </select> <br>
-    Zip: <input name="zip" id="form_zip" placeholder="Zip"> <br>
+    Zip: <input name="zip" id="form1_zip" placeholder="Zip"> <br>
     Country: <input name="country" id="form_country" placeholder="Country"> <br>
     Company: <input name="company" id="form_company" placeholder="company"> <br>
-    Email: <input name="email" id="form_email" placeholder="Email"> <br>
+    Email: <input name="email" id="form1_email" placeholder="Email"> <br>
     <div id="form_phone_container" style="display: none;">
-      Phone: <input name="phone" id="form_phone" placeholder="Phone"> <br>
+      Phone: <input name="phone" id="form1_phone" placeholder="Phone"> <br>
     </div>
     <input type="reset" value="Reset">
     <input type="submit" value="Submit" id="profile_submit">
@@ -250,7 +251,7 @@
   <hr>
   <h3>Basic form key/value Autocomplete (unstructured data)</h3>
 
-  <form name="form300" id="form300" action="/generic_submit" method="post">
+  <form name="form300" id="form300" action="/generic_submit" method="post" enctype="multipart/form-data">
     This Is: <input type="text" name="n300"><br>
     <input type="reset" value="Reset">
     <input type="submit" value="Submit" id="key_value_autocomplete_submit">
@@ -269,7 +270,8 @@
   <hr>
   <h3>Basic form key/value Autocomplete (autocomplete="off")</h3>
 
-  <form name="form300off" id="form300off" action="/generic_submit" method="post" autocomplete="off">
+  <form name="form300off" id="form300off" action="/generic_submit" method="post" autocomplete="off"
+    enctype="multipart/form-data">
     This Is: <input type="text" name="n300" autocomplete="off" /><br>
     <input type="reset" value="Reset">
     <input type="submit" value="Submit" id="key_value_autocomplete_off_submit">
@@ -289,7 +291,7 @@
 
   <h3>Username/Password</h3>
 
-  <form name="np" id="np1" action="https://example.com/" method="post">
+  <form name="np" id="np1" action="https://example.com/" method="post" enctype="multipart/form-data">
     Username: <input type="text" name="username" id="password_name"><br>
     Password: <input type="password" name="password" id="password_field"><br>
     <input type="reset" value="Reset">
@@ -309,11 +311,12 @@
   <hr>
   <h3>autocomplete="off" form</h3>
 
-  <form name="addr1.1off" id="acoff" action="https://example.com/" method="post" autocomplete="off">
+  <form name="addr1.1off" id="acoff" action="https://example.com/" method="post" autocomplete="off"
+    enctype="multipart/form-data">
     Name: <input type="text" name="name" autocomplete="off" value="Name"><br>
     Address: <input type="text" name="address" autocomplete="off" value="Address"><br>
     City: <input type="text" name="city" autocomplete="off" value="City"><br>
-    State: <select name="state" autocomplete="off">
+    State: <select name="state" autocomplete="off" aria-labelledby="state">
       <option value="CA">CA</option>
       <option value="MA">MA</option>
       <option value="NY">NY</option>
@@ -333,13 +336,13 @@
   <hr>
   <h3>Shipping and Billing sections</h3>
 
-  <form name="addr1.sections" id="sections1" action="https://example.com/" method="post">
+  <form name="addr1.sections" id="sections1" action="https://example.com/" method="post" enctype="multipart/form-data">
     <div id='billing1'>
       <h2>Billing Address</h2>
       Name: <input type="text" name="name"><br>
       Address: <input type="text" name="address"><br>
       City: <input type="text" name="city"><br>
-      State: <select name="state">
+      State: <select name="state" aria-labelledby="state">
         <option value="CA">CA</option>
         <option value="MA">MA</option>
         <option value="NY">NY</option>
@@ -360,7 +363,7 @@
       Name: <input type="text" name="s_name"><br>
       Address: <input type="text" name="s_address"><br>
       City: <input type="text" name="s_city"><br>
-      State: <select name="s_state">
+      State: <select name="s_state" aria-labelledby="state">
         <option value="CA">CA</option>
         <option value="MA">MA</option>
         <option value="NY">NY</option>
