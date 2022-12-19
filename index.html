@@ -170,6 +170,7 @@
             }
             form['CreditCardNumber'].value = ccngen(type);
             form['CVV'].value = cvvgen(type);
+            form['organization'].value = 'ExampleOrg ' + type;
         }
 
         // Fork https://github.com/johnsylvain/ccn-gen
