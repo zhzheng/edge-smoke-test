@@ -2,398 +2,538 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Autofill Smoke Test</title>
-
-  <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico?">
-  <link rel="bookmark" type="image/x-icon" href="./img/favicon.ico?" />
-
-  <script src="./lib/jquery.min.js"></script>
-  <script>
-
-    var phoneNumber = '310-310-6000';
-    var FlipRTL = function () {
-      var html = document.getElementsByTagName('html')[0];
-      if (html.getAttribute("dir") == "rtl") {
-        html.setAttribute("dir", "ltr");
-      } else {
-        html.setAttribute("dir", "rtl");
-      }
-    }
-    var FillFormSimpsons = function () {
-      var form = document.forms['form1'];
-      form['name'].value = 'Homer Simpson';
-      form['address'].value = '123 Main Street';
-      form['city'].value = 'Springfield';
-      form['state'].value = 'IL';
-      form['zip'].value = '55123';
-      form['country'].value = 'USA';
-      form['email'].value = 'hjs@aol.com';
-      form['phone'].value = phoneNumber;
-    }
-    var FillFormSuperman = function () {
-      var form = document.forms['form1'];
-      form['name'].value = 'Superman';
-      form['address'].value = 'Hall of Justice';
-      form['city'].value = 'Metropolis';
-      form['state'].value = 'NY';
-      form['zip'].value = '55555';
-      form['country'].value = 'United States';
-      form['phone'].value = phoneNumber;
-    }
-    var FillFormPresident = function () {
-      var form = document.forms['form1'];
-      form['name'].value = 'Barack Obama';
-      form['address'].value = '1600 Pennsylvania Ave NW';
-      form['city'].value = 'Washington';
-      form['state'].value = 'DC';
-      form['zip'].value = '20500';
-      form['country'].value = 'United States';
-      form['phone'].value = phoneNumber;
-    }
-
-    var BasicFillForm = function (id, str) {
-      var form = document.forms[id];
-      form['n300'].value = str;
-    }
-
-    /* These are not valid credit card numbers!!!! */
-    /* They pass the Luhn check but that's it.     */
-    var FillFormGood = function () {
-      var form = document.forms['CreditCardAutoFill'];
-      form['CardHolderName'].value = 'Leonora V Pimentel';
-      form['AddressLine1'].value = '1299 Rebecca Street';
-      form['City'].value = 'Bensenville';
-      form['State'].value = 'Illinois';
-      form['PostalCode'].value = '60106';
-      form['Country'].value = 'United States';
-      form['CreditCardNumber'].value = '4485923556582939';
-      form['ExpiryDate'].value = '01/2024';
-      form['CVV'].value = '611';
-      form['email'].value = 'Dr.Pimentel@example.org';
-      form['phoneNumber'].value = '+1 (847) 748-0399';
-      form['organization'].value = 'Rebecca';
-    }
-
-    var FillFormBad = function () {
-      var form = document.forms['CreditCardAutoFill'];
-      form['CardHolderName'].value = 'Barack Obama';
-      form['AddressLine1'].value = '1600 Pennsylvania Ave NW';
-      form['City'].value = 'Washington';
-      form['State'].value = 'dc';
-      form['PostalCode'].value = '20500';
-      form['Country'].value = 'United States';
-      form['CreditCardNumber'].value = '4417-1234-5678-9113';
-      form['ExpiryDate'].value = '12/2022';
-      form['CVV'].value = '222';
-      form['email'].value = 'Dr.Roman@chaldea.org';
-      form['phoneNumber'].value = '+1 (843) 554-5795';
-      form['organization'].value = 'Chaldea';
-    }
-
-    var NPFillFormSimpsons = function () {
-      var form = document.forms['np1'];
-      form['username'].value = 'Homer_Simpson';
-      form['password'].value = 'DOH!';
-    }
-    var NPFillFormSuperman = function () {
-      var form = document.forms['np1'];
-      form['username'].value = 'Superman';
-      form['password'].value = 'LouisLane';
-    }
-    var NPFillFormPresident = function () {
-      var form = document.forms['np1'];
-      form['username'].value = 'Barackalypse';
-      form['password'].value = 'ILoveGeorgeBush';
-    }
-
-    var changeVisibility = function (checkbox, targetId) {
-      document.getElementById(targetId).style.display = checkbox.checked ? 'none' : 'block';
-    }
-
-    function AjaxSubmit(event) {
-      var form = event.target.form;
-      $.ajax({
-        type: "POST",
-        crossDomain: true,
-        url: 'https://cors-test.appspot.com/',
-        data: $(form).serialize(),
-        success: function () {
-          form.parentNode.innerHTML = "Form Submitted";
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Autofill Smoke Test</title>
+    <link rel="shortcut icon" type="image/x-icon" href="./img/favicon.ico?">
+    <link rel="bookmark" type="image/x-icon" href="./img/favicon.ico?">
+    <script src="./lib/jquery.min.js"></script>
+    <script>
+        var phoneNumber = '310-310-6000';
+        var FlipRTL = function() {
+            var html = document.getElementsByTagName('html')[0];
+            if (html.getAttribute("dir") == "rtl") {
+                html.setAttribute("dir", "ltr");
+            } else {
+                html.setAttribute("dir", "rtl");
+            }
         }
-      });
-    }
+        var FillFormSimpsons = function() {
+            var form = document.forms['form1'];
+            form['name'].value = 'Homer Simpson';
+            form['address'].value = '123 Main Street';
+            form['city'].value = 'Springfield';
+            form['state'].value = 'IL';
+            form['zip'].value = '55123';
+            form['country'].value = 'USA';
+            form['email'].value = 'hjs@aol.com';
+            form['phone'].value = phoneNumber;
+        }
+        var FillFormSuperman = function() {
+            var form = document.forms['form1'];
+            form['name'].value = 'Superman';
+            form['address'].value = 'Hall of Justice';
+            form['city'].value = 'Metropolis';
+            form['state'].value = 'NY';
+            form['zip'].value = '55555';
+            form['country'].value = 'United States';
+            form['phone'].value = phoneNumber;
+        }
+        var FillFormPresident = function() {
+            var form = document.forms['form1'];
+            form['name'].value = 'Barack Obama';
+            form['address'].value = '1600 Pennsylvania Ave NW';
+            form['city'].value = 'Washington';
+            form['state'].value = 'DC';
+            form['zip'].value = '20500';
+            form['country'].value = 'United States';
+            form['phone'].value = phoneNumber;
+        }
 
-    function ShowPhoneNumber() {
-      document.getElementById('form_phone_container').style.display = 'block';
-    }
+        var BasicFillForm = function(id, str) {
+            var form = document.forms[id];
+            form['n300'].value = str;
+        }
 
-    const postcode = {
-      "Australia": "1234",
-      "Brazil": "22230-090",
-      "Canada": "A1B 2C3",
-      "China": "123456",
-      "France": "12345",
-      "Germany": "12345",
-      "India": "123456",
-      "Japan": "123-4567",
-      "Mexico": "12345",
-      "South Korea": "12345",
-      "United Kingdom": "LE1 5AF",
-      "United States": "12345"
-    };
+        /* These are not valid credit card numbers!!!! */
+        /* They pass the Luhn check but that's it.     */
+        var FillFormGood = function() {
+            var form = document.forms['CreditCardAutoFill'];
+            form['CardHolderName'].value = 'Leonora V Pimentel';
+            form['AddressLine1'].value = '1999 Rebecca Street';
+            form['City'].value = 'Bensenville';
+            form['State'].value = 'Illinois';
+            form['PostalCode'].value = '60106';
+            form['Country'].value = 'United States';
+            form['CreditCardNumber'].value = '4485923556582939';
+            form['ExpiryDate'].value = '01/2024';
+            form['CVV'].value = '611';
+            form['email'].value = 'Dr.Pimentel@example.org';
+            form['phoneNumber'].value = '+1 (847) 748-9611';
+            form['organization'].value = 'ExampleOrg';
+        }
 
-    function ResetCreditCardAutofillZipPlaceHolder() {
-      var form = document.forms['CreditCardAutoFill'];
-      form['PostalCode'].placeholder = "Example: " + postcode['United States'];
-    }
+        var FillFormBad = function() {
+            var form = document.forms['CreditCardAutoFill'];
+            form['CardHolderName'].value = 'Barack Obama';
+            form['AddressLine1'].value = '1600 Pennsylvania Ave NW';
+            form['City'].value = 'Washington';
+            form['State'].value = 'dc';
+            form['PostalCode'].value = '20500';
+            form['Country'].value = 'United States';
+            form['CreditCardNumber'].value = '4417-1234-5678-9113';
+            form['ExpiryDate'].value = '12/2022';
+            form['CVV'].value = '222';
+            form['email'].value = 'Dr.Roman@chaldea.org';
+            form['phoneNumber'].value = '+1 (843) 554-5795';
+            form['organization'].value = 'Chaldea';
+        }
 
-    function UpdateZipPlaceHolder() {
-      var select = $("#country_select").children('option:selected').val();
-      if (postcode[select]) {
-        ph = "Example: " + postcode[select];
-      } else {
-        ph = "Zip code";
-      }
-      $("#postalCode")[0].placeholder = ph;
-    }
+        var NPFillFormSimpsons = function() {
+            var form = document.forms['np1'];
+            form['username'].value = 'Homer_Simpson';
+            form['password'].value = 'DOH!';
+        }
+        var NPFillFormSuperman = function() {
+            var form = document.forms['np1'];
+            form['username'].value = 'Superman';
+            form['password'].value = 'LouisLane';
+        }
+        var NPFillFormPresident = function() {
+            var form = document.forms['np1'];
+            form['username'].value = 'Barackalypse';
+            form['password'].value = 'ILoveGeorgeBush';
+        }
 
-    $(document).ready(function () {
-      UpdateZipPlaceHolder();
-    });
+        var changeVisibility = function(checkbox, targetId) {
+            document.getElementById(targetId).style.display = checkbox.checked ? 'none' : 'block';
+        }
 
-    $(document).ready(function () {
-      $("#country_select").change(function () {
-        UpdateZipPlaceHolder();
-      })
-    });
-  </script>
-  <style>
-    .fork {
-      position: absolute;
-      top: 0;
-      right: 0;
-      border: 0;
-    }
-  </style>
+        function AjaxSubmit(event) {
+            var form = event.target.form;
+            $.ajax({
+                type: "POST",
+                crossDomain: true,
+                url: 'https://cors-test.appspot.com/',
+                data: $(form).serialize(),
+                success: function() {
+                    form.parentNode.innerHTML = "Form Submitted";
+                }
+            });
+        }
+
+        function ShowPhoneNumber() {
+            document.getElementById('form_phone_container').style.display = 'block';
+        }
+
+        const postcode = {
+            "Australia": "1234",
+            "Brazil": "22230-090",
+            "Canada": "A1B 2C3",
+            "China": "123456",
+            "France": "12345",
+            "Germany": "12345",
+            "India": "123456",
+            "Japan": "123-4567",
+            "Mexico": "12345",
+            "South Korea": "12345",
+            "United Kingdom": "LE1 5AF",
+            "United States": "12345"
+        };
+
+        function ResetCreditCardAutofillZipPlaceHolder() {
+            var form = document.forms['CreditCardAutoFill'];
+            form['PostalCode'].placeholder = "Example: " + postcode['United States'];
+        }
+
+        function UpdateZipPlaceHolder() {
+            var select = $("#country_select").children('option:selected').val();
+            if (postcode[select]) {
+                ph = "Example: " + postcode[select];
+            } else {
+                ph = "Zip code";
+            }
+            $("#postalCode")[0].placeholder = ph;
+        }
+
+        function RandomFill() {
+            FillFormGood();
+            var form = document.forms['CreditCardAutoFill'];
+            let random = Math.floor(Math.random() * 3);
+            var type;
+            if (random == 0) {
+                type = "Visa";
+            } else if (random == 1) {
+                type = "Mastercard";
+            } else {
+                type = "amex";
+            }
+            form['CreditCardNumber'].value = ccngen(type);
+            form['CVV'].value = cvvgen(type);
+        }
+
+        // Fork https://github.com/johnsylvain/ccn-gen
+        function ccngen(type) {
+            let pos;
+            let str = new Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+            let sum = 0;
+            let final_digit = 0;
+            let i = 0;
+            let t = 0;
+            let len_offset = 0;
+            let len = 0;
+            let templates = {
+                'Visa': 'xxxxxxxxxxxxxxxx',
+                'Mastercard': 'xxxxxxxxxxxxxxxx',
+                'amex': 'xxxxxxxxxxxxxxx'
+            }
+
+            //
+            // Fill in the first values of the string based with the specified bank's prefix.
+            //
+
+            // Visa
+            if (type === 'Visa') {
+                str[0] = 4;
+                pos = 1;
+                len = 16;
+            }
+            // Mastercard
+            else if (type === 'Mastercard') {
+                str[0] = 5;
+                t = Math.floor(Math.random() * 5) % 5;
+                str[1] = 1 + t; // Between 1 and 5.
+                pos = 2;
+                len = 16;
+            }
+            // American Express
+            else if (type === 'amex') {
+                str[0] = 3;
+                t = Math.floor(Math.random() * 4) % 4;
+                str[1] = 4 + t; // Between 4 and 7.
+                pos = 2;
+                len = 15;
+            }
+
+            //
+            // Fill all the remaining numbers except for the last one with random values.
+            //
+
+            while (pos < len - 1) {
+                str[pos++] = Math.floor(Math.random() * 10) % 10;
+            }
+
+            //
+            // Calculate the Luhn checksum of the values thus far.
+            //
+
+            len_offset = (len + 1) % 2;
+            for (pos = 0; pos < len - 1; pos++) {
+                if ((pos + len_offset) % 2) {
+                    t = str[pos] * 2;
+                    if (t > 9) {
+                        t -= 9;
+                    }
+                    sum += t;
+                } else {
+                    sum += str[pos];
+                }
+            }
+
+            //
+            // Choose the last digit so that it causes the entire string to pass the checksum.
+            //
+
+            final_digit = (10 - (sum % 10)) % 10;
+            str[len - 1] = final_digit;
+
+            //
+            // Fill out template
+            //
+
+            return templates[type].replace(/[x]/g, function() {
+                return str[i++];
+            });
+        }
+
+        function cvvgen(type) {
+            let cvv = '';
+
+            if (type === 'Visa' || type === 'Mastercard') {
+                cvv = ('00' + Math.floor(Math.random() * 999)).slice(-3);
+            } else if (type === 'amex') {
+                cvv = ('000' + Math.floor(Math.random() * 9999)).slice(-4)
+            }
+
+            return cvv;
+        }
+
+        $(document).ready(function() {
+            UpdateZipPlaceHolder();
+        });
+
+        $(document).ready(function() {
+            $("#country_select").change(function() {
+                UpdateZipPlaceHolder();
+            })
+        });
+    </script>
+    <style>
+        .fork {
+            position: absolute;
+            top: 0;
+            right: 0;
+            border: 0;
+        }
+    </style>
 </head>
 
 <body>
-  <div id="creditCardAutofill">
-    <h3>Credit Card Autofill</h3>
-    <form id="CreditCardAutoFill" action="https://example.com/" method="post" enctype="multipart/form-data"
-      onreset="ResetCreditCardAutofillZipPlaceHolder()">
-      <div>
-        Credit card number: <input name="CreditCardNumber" id="creditCardNumber" placeholder="Card number" autofocus>
-      </div>
-      <div>
-        Card holder name: <input name="CardHolderName" placeholder="Name On Card" id="cardHolderName">
-      </div>
-      <div>
-        Expiry date: <input name="ExpiryDate" id="expiry_date" placeholder="Expiry date" />
-      </div>
-      <div>
-        CVV: <input name="CVV" id="cvv" placeholder="CVV">
-      </div>
-      <div>
-        Country: <select name="Country" id="country_select" aria-labelledby="Country">
-          <option value="Australia">Australia</option>
-          <option value="Brazil">Brazil</option>
-          <option value="Canada">Canada</option>
-          <option value="China">China</option>
-          <option value="France">France</option>
-          <option value="Germany">Germany</option>
-          <option value="India">India</option>
-          <option value="Japan">Japan</option>
-          <option value="Mexico">Mexico</option>
-          <option value="South Korea">Korea</option>
-          <option value="United Kingdom">United Kingdom</option>
-          <option selected="selected" value="United States">United States</option>
-        </select>
+    <div id="creditCardAutofill">
+        <h3>Credit Card Autofill</h3>
+        <form id="CreditCardAutoFill" action="https://example.com/" method="post" enctype="multipart/form-data" onreset="ResetCreditCardAutofillZipPlaceHolder()">
+            <div>
+                Credit card number:
+                <input name="CreditCardNumber" id="creditCardNumber" placeholder="Card number" autofocus>
+            </div>
+            <div>
+                Card holder name:
+                <input name="CardHolderName" placeholder="Name On Card" id="cardHolderName">
+            </div>
+            <div>
+                Expiry date:
+                <input name="ExpiryDate" id="expiry_date" placeholder="Expiry date">
+            </div>
+            <div>
+                CVV:
+                <input name="CVV" id="cvv" placeholder="CVV">
+            </div>
+            <div>
+                Country:
+                <select name="Country" id="country_select" aria-labelledby="Country">
+                        <option value="Australia">Australia</option>
+                        <option value="Brazil">Brazil</option>
+                        <option value="Canada">Canada</option>
+                        <option value="China">China</option>
+                        <option value="France">France</option>
+                        <option value="Germany">Germany</option>
+                        <option value="India">India</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Mexico">Mexico</option>
+                        <option value="South Korea">Korea</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option selected="selected" value="United States">United States</option>
+                    </select>
+                <br>
+            </div>
+            <div>
+                Address line 1:
+                <input name="AddressLine1" id="addressLine1" placeholder="Address line 1">
+            </div>
+            <div>
+                Address line 2:
+                <input name="AddressLine2" id="addressLine2" placeholder="Address line 2">
+            </div>
+            <div>
+                City:
+                <input name="City" id="city" placeholder="City">
+            </div>
+            <div>
+                State:
+                <input name="State" id="state" placeholder="State">
+            </div>
+            <div>
+                Zip code:
+                <input name="PostalCode" id="postalCode" placeholder="Zip Code">
+            </div>
+            <div>
+                Email:
+                <input placeholder="Email" name="email">
+            </div>
+            <div>
+                Phone number:
+                <input placeholder="Phone number" name="phoneNumber">
+            </div>
+            <div>
+                Organization:
+                <input placeholder="Organization" name="organization">
+            </div>
+            <br>
+            <input type="reset" value="Reset" id="creditCardFormReset">
+            <input type="submit" value="Submit" id="creditCardFormSubmit">
+        </form>
+        <button type="button" onclick="RandomFill()">Random Fill Form</button>
         <br>
-      </div>
-      <div>
-        Address line 1: <input name="AddressLine1" id="addressLine1" placeholder="Address line 1">
-      </div>
-      <div>
-        Address line 2: <input name="AddressLine2" id="addressLine2" placeholder="Address line 2">
-      </div>
-      <div>
-        City: <input name="City" id="city" placeholder="City">
-      </div>
-      <div>
-        State: <input name="State" id="state" placeholder="State">
-      </div>
-      <div>
-        Zip code: <input name="PostalCode" id="postalCode" placeholder="Zip Code">
-      </div>
-      <div>
-        Email: <input placeholder="Email" name="email">
-      </div>
-      <div>
-        Phone number: <input placeholder="Phone number" name="phoneNumber">
-      </div>
-      <div>
-        Organization: <input placeholder="Organization" name="organization">
-      </div>
-      <br>
-      <input type="reset" value="Reset" id="creditCardFormReset">
-      <input type="submit" value="Submit" id="creditCardFormSubmit">
+        <button type="button" onclick="FillFormGood()">Fill Form (Good Card)</button>
+        <br>
+        <button type="button" onclick="FillFormBad()">Fill Form (Bad Card)</button>
+        <br>
+        <div class="statement-0-2-15">
+            <em>Beware what you post, all the forms send data to https://example.com, see</em>
+            <a class="RFC" href="https://datatracker.ietf.org/doc/rfc2606/" target="_blank">RFC2606</a> .
+            <br>
+            </em>
+            <a class="statementLegal-0-2-16" href="https://privacy.microsoft.com/en-us/privacystatement" target="_blank">Microsoft Privacy Statement</a>
+        </div>
+    </div>
+    <hr>
+    <h3>Profile Autofill</h3>
+    <form name="addr1.1" id="form1" action="https://example.com/" method="post" enctype="multipart/form-data">
+        Name:
+        <input type="text" name="name" placeholder="Name">
+        <br> Address:
+        <input type="text" name="address" placeholder="Address">
+        <br> City:
+        <input type="text" name="city" placeholder="City">
+        <br> State:
+        <input type="text" name="state" placeholder="State">
+        <br> Zip:
+        <input name="zip" id="form1_zip" placeholder="Zip">
+        <br> Country:
+        <input name="country" id="form_country" placeholder="Country">
+        <br> Company:
+        <input name="company" id="form_company" placeholder="company">
+        <br> Email:
+        <input name="email" id="form1_email" placeholder="Email">
+        <br>
+        <div id="form_phone_container" style="display: none;">
+            Phone:
+            <input name="phone" id="form1_phone" placeholder="Phone">
+            <br>
+        </div>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit" id="profile_submit">
+        <button type="button" onclick="AjaxSubmit(event)">AJAX Submit</button>
+        <button type="button" onclick="ShowPhoneNumber()">Show phone number</button>
     </form>
-
-    <button type="button" onclick="FillFormGood()">Fill Form (Good Card)</button>
+    <button type="button" onclick="FillFormSimpsons()">Fill Form (Simpsons)</button>
     <br>
-    <button type="button" onclick="FillFormBad()">Fill Form (Bad Card)</button>
+    <button type="button" onclick="FillFormSuperman()">Fill Form (Superman)</button>
     <br>
-
-    <div class="statement-0-2-15"><em>Beware what you post, all the forms send data to https://example.com, see </em><a
-        class="RFC" href="https://datatracker.ietf.org/doc/rfc2606/" target="_blank">RFC2606</a>.
-      <br>
-      </em> <a class="statementLegal-0-2-16" href="https://privacy.microsoft.com/en-us/privacystatement"
-        target="_blank">Microsoft Privacy Statement</a>
-    </div>
-  </div>
-  <hr>
-  <h3>Profile Autofill</h3>
-
-  <form name="addr1.1" id="form1" action="https://example.com/" method="post" enctype="multipart/form-data">
-    Name: <input type="text" name="name" placeholder="Name"><br>
-    Address: <input type="text" name="address" placeholder="Address"><br>
-    City: <input type="text" name="city" placeholder="City"><br>
-    State: <input type="text" name="state" placeholder="State"><br>
-    Zip: <input name="zip" id="form1_zip" placeholder="Zip"> <br>
-    Country: <input name="country" id="form_country" placeholder="Country"> <br>
-    Company: <input name="company" id="form_company" placeholder="company"> <br>
-    Email: <input name="email" id="form1_email" placeholder="Email"> <br>
-    <div id="form_phone_container" style="display: none;">
-      Phone: <input name="phone" id="form1_phone" placeholder="Phone"> <br>
-    </div>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Submit" id="profile_submit">
-    <button type="button" onclick="AjaxSubmit(event)">AJAX Submit</button>
-    <button type="button" onclick="ShowPhoneNumber()">Show phone number</button>
-  </form>
-
-  <button type="button" onclick="FillFormSimpsons()">Fill Form (Simpsons)</button>
-  <br>
-  <button type="button" onclick="FillFormSuperman()">Fill Form (Superman)</button>
-  <br>
-  <button type="button" onclick="FillFormPresident()">Fill Form (President)</button>
-  <br>
-
-
-  <hr>
-  <h3>Basic form key/value Autocomplete (unstructured data)</h3>
-
-  <form name="form300" id="form300" action="/generic_submit" method="post" enctype="multipart/form-data">
-    This Is: <input type="text" name="n300"><br>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Submit" id="key_value_autocomplete_submit">
-  </form>
-
-  <p>
-
-    <button type="button" onclick="BasicFillForm('form300', 'Sparta')">Sparta</button>
+    <button type="button" onclick="FillFormPresident()">Fill Form (President)</button>
     <br>
-    <button type="button" onclick="BasicFillForm('form300', 'Simpsons')">Simpsons</button>
-    <br>
-    <button type="button" onclick="BasicFillForm('form300', 'Superman')">Superman</button>
-    <br>
-
-  </p>
-  <hr>
-  <h3>Basic form key/value Autocomplete (autocomplete="off")</h3>
-
-  <form name="form300off" id="form300off" action="/generic_submit" method="post" autocomplete="off"
-    enctype="multipart/form-data">
-    This Is: <input type="text" name="n300" autocomplete="off" /><br>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Submit" id="key_value_autocomplete_off_submit">
-  </form>
-
-  <p>
-
-    <button type="button" onclick="BasicFillForm('form300off', 'Sparta')">Sparta</button>
-    <br>
-    <button type="button" onclick="BasicFillForm('form300off', 'Simpsons')">Simpsons</button>
-    <br>
-    <button type="button" onclick="BasicFillForm('form300off', 'Superman')">Superman</button>
-    <br>
-
-  </p>
-  <hr>
-
-  <h3>Username/Password</h3>
-
-  <form name="np" id="np1" action="https://example.com/" method="post" enctype="multipart/form-data">
-    Username: <input type="text" name="username" id="password_name"><br>
-    Password: <input type="password" name="password" id="password_field"><br>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Submit" id="password_submit">
-  </form>
-
-  <p>
-
-    <button type="button" onclick="NPFillFormSimpsons()">NP Fill Form (Simpsons)</button>
-    <br>
-    <button type="button" onclick="NPFillFormSuperman()">NP Fill Form (Superman)</button>
-    <br>
-    <button type="button" onclick="NPFillFormPresident()">NP Fill Form (President)</button>
-    <br>
-
-  </p>
-  <hr>
-  <h3>autocomplete="off" form</h3>
-
-  <form name="addr1.1off" id="acoff" action="https://example.com/" method="post" autocomplete="off"
-    enctype="multipart/form-data">
-    Name: <input type="text" name="name" autocomplete="off" value="Name"><br>
-    Address: <input type="text" name="address" autocomplete="off" value="Address"><br>
-    City: <input type="text" name="city" autocomplete="off" value="City"><br>
-    State: <input type="text" name="state" autocomplete="off" value="City"><br>
-    Zip: <input name="zip" id="form_zip" autocomplete="off" value="Zip"> <br>
-    Email: <input name="email" id="form_email" autocomplete="off" value="Email"> <br>
-    Phone: <input name="phone" id="form_phone" autocomplete="off" value="Phone"> <br>
-    <input type="reset" value="Reset">
-    <input type="submit" value="Submit" id="autocomplete_off_submit">
-  </form>
-
-  <hr>
-  <h3>Shipping and Billing sections</h3>
-
-  <form name="addr1.sections" id="sections1" action="https://example.com/" method="post" enctype="multipart/form-data">
-    <div id='billing1'>
-      <h2>Billing Address</h2>
-      Name: <input type="text" name="name"><br>
-      Address: <input type="text" name="address"><br>
-      City: <input type="text" name="city"><br>
-      State: <input type="text" name="state"><br>
-      Zip: <input name="zip"> <br>
-      Country: <input name="country"> <br>
-      Email: <input name="email"> <br>
-    </div>
-    Ship to the same address:
-    <input name="same" type="checkbox" checked="checked" onchange="changeVisibility(this, 'shipping1')">
-    <div id='shipping1' style="display: none;">
-      <h2>Shipping Address</h2>
-      Name: <input type="text" name="s_name"><br>
-      Address: <input type="text" name="s_address"><br>
-      City: <input type="text" name="s_city"><br>
-      State: <input type="text" name="s_state"><br>
-      Zip: <input name="s_zip"> <br>
-      Country: <input name="s_country"> <br>
-      Email: <input name="s_email"> <br>
-    </div>
-    <div>
-      <input type="reset" value="Reset">
-      <input type="submit" value="Submit">
-    </div>
-  </form>
-
-  <hr>
-  <button type="button" onclick="FlipRTL()">RTL &lt;-&gt; LTR</button>
-
+    <hr>
+    <h3>Basic form key/value Autocomplete (unstructured data)</h3>
+    <form name="form300" id="form300" action="/generic_submit" method="post" enctype="multipart/form-data">
+        This Is:
+        <input type="text" name="n300">
+        <br>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit" id="key_value_autocomplete_submit">
+    </form>
+    <p>
+        <button type="button" onclick="BasicFillForm('form300', 'Sparta')">Sparta</button>
+        <br>
+        <button type="button" onclick="BasicFillForm('form300', 'Simpsons')">Simpsons</button>
+        <br>
+        <button type="button" onclick="BasicFillForm('form300', 'Superman')">Superman</button>
+        <br>
+    </p>
+    <hr>
+    <h3>Basic form key/value Autocomplete (autocomplete="off")</h3>
+    <form name="form300off" id="form300off" action="/generic_submit" method="post" autocomplete="off" enctype="multipart/form-data">
+        This Is:
+        <input type="text" name="n300" autocomplete="off">
+        <br>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit" id="key_value_autocomplete_off_submit">
+    </form>
+    <p>
+        <button type="button" onclick="BasicFillForm('form300off', 'Sparta')">Sparta</button>
+        <br>
+        <button type="button" onclick="BasicFillForm('form300off', 'Simpsons')">Simpsons</button>
+        <br>
+        <button type="button" onclick="BasicFillForm('form300off', 'Superman')">Superman</button>
+        <br>
+    </p>
+    <hr>
+    <h3>Username/Password</h3>
+    <form name="np" id="np1" action="https://example.com/" method="post" enctype="multipart/form-data">
+        Username:
+        <input type="text" name="username" id="password_name">
+        <br> Password:
+        <input type="password" name="password" id="password_field">
+        <br>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit" id="password_submit">
+    </form>
+    <p>
+        <button type="button" onclick="NPFillFormSimpsons()">NP Fill Form (Simpsons)</button>
+        <br>
+        <button type="button" onclick="NPFillFormSuperman()">NP Fill Form (Superman)</button>
+        <br>
+        <button type="button" onclick="NPFillFormPresident()">NP Fill Form (President)</button>
+        <br>
+    </p>
+    <hr>
+    <h3>autocomplete="off" form</h3>
+    <form name="addr1.1off" id="acoff" action="https://example.com/" method="post" autocomplete="off" enctype="multipart/form-data">
+        Name:
+        <input type="text" name="name" autocomplete="off" value="Name">
+        <br> Address:
+        <input type="text" name="address" autocomplete="off" value="Address">
+        <br> City:
+        <input type="text" name="city" autocomplete="off" value="City">
+        <br> State:
+        <input type="text" name="state" autocomplete="off" value="City">
+        <br> Zip:
+        <input name="zip" id="form_zip" autocomplete="off" value="Zip">
+        <br> Email:
+        <input name="email" id="form_email" autocomplete="off" value="Email">
+        <br> Phone:
+        <input name="phone" id="form_phone" autocomplete="off" value="Phone">
+        <br>
+        <input type="reset" value="Reset">
+        <input type="submit" value="Submit" id="autocomplete_off_submit">
+    </form>
+    <hr>
+    <h3>Shipping and Billing sections</h3>
+    <form name="addr1.sections" id="sections1" action="https://example.com/" method="post" enctype="multipart/form-data">
+        <div id="billing1">
+            <h2>Billing Address</h2>
+            Name:
+            <input type="text" name="name">
+            <br> Address:
+            <input type="text" name="address">
+            <br> City:
+            <input type="text" name="city">
+            <br> State:
+            <input type="text" name="state">
+            <br> Zip:
+            <input name="zip">
+            <br> Country:
+            <input name="country">
+            <br> Email:
+            <input name="email">
+            <br>
+        </div>
+        Ship to the same address:
+        <input name="same" type="checkbox" checked="checked" onchange="changeVisibility(this, 'shipping1')">
+        <div id="shipping1" style="display: none;">
+            <h2>Shipping Address</h2>
+            Name:
+            <input type="text" name="s_name">
+            <br> Address:
+            <input type="text" name="s_address">
+            <br> City:
+            <input type="text" name="s_city">
+            <br> State:
+            <input type="text" name="s_state">
+            <br> Zip:
+            <input name="s_zip">
+            <br> Country:
+            <input name="s_country">
+            <br> Email:
+            <input name="s_email">
+            <br>
+        </div>
+        <div>
+            <input type="reset" value="Reset">
+            <input type="submit" value="Submit">
+        </div>
+    </form>
+    <hr>
+    <button type="button" onclick="FlipRTL()">RTL &lt;-&gt; LTR</button>
 </body>
 
 </html>
